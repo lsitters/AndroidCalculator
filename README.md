@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="images/calculator_screenshot.png" alt="Android Calculator App" width="80">
+    <img src="./calculator_screenshot.png" alt="Android Calculator App" width="80">
 </div>
 
 <!-- TABLE OF CONTENTS -->
