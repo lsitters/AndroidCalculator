@@ -34,8 +34,8 @@ fun CalculatorButton(
     ) {
         Text(
             text = symbol,
-            fontSize = 36.sp,
-            color = symbolColor
+            color = symbolColor,
+            style = MaterialTheme.typography.displaySmall
         )
     }
 }
