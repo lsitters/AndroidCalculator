@@ -36,7 +36,7 @@ fun Calculator(
                 fontWeight = FontWeight.Light,
                 fontSize = 80.sp,
                 lineHeight = 80.sp,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 maxLines = 2
             )
             Row(
