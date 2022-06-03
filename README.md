@@ -10,8 +10,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-   <img src="./calculator_screenshot.png" alt="Android Calculator App Light Mode 40+2" width="80">
-   <img src="./calculator_screenshot_dark.png" alt="Android Calculator App Dark Mode 40+2" width="80">
+   <img src="./calculator_screenshot.png" alt="Android Calculator App Light Mode 40+2" width="160">
+   <img src="./calculator_screenshot_dark.png" alt="Android Calculator App Dark Mode 40+2" width="160">
 </div>
 
 <!-- TABLE OF CONTENTS -->
