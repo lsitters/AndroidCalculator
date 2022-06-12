@@ -1,5 +1,6 @@
 package com.example.calculator
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,13 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.calculator.ui.theme.Shapes
 
 @Composable
 fun Calculator(
@@ -39,19 +38,7 @@ fun Calculator(
                     .background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                Text(
-                    text = state.num1 + state.operation?.symbol.orEmpty() + state.num2,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                    ,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 80.sp,
-                    lineHeight = 80.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2
-                )
+                EquationText(state)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -283,6 +270,45 @@ fun Calculator(
                 )
             }
         }
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+private fun EquationText(state: CalculatorState) {
+    AnimatedContent(
+        targetState = state.num1 + state.operation?.symbol.orEmpty() + state.num2,
+        transitionSpec = {
+            // Compare the incoming number with the previous number.
+            if (targetState != initialState) {
+                // If the target number is larger, it slides up and fades in
+                // while the initial (smaller) number slides up and fades out.
+                slideInVertically { height -> height } + fadeIn() with
+                        slideOutVertically { height -> -height } + fadeOut()
+            } else {
+                // If the target number is smaller, it slides down and fades in
+                // while the initial number slides down and fades out.
+                slideInHorizontally { height -> -height } + fadeIn() with
+                        slideOutHorizontally { height -> height } + fadeOut()
+            }.using(
+                // Disable clipping since the faded slide-in/out should
+                // be displayed out of bounds.
+                SizeTransform(clip = false)
+            )
+        }
+    ) { targetCount ->
+        Text(
+            text = targetCount,
+            textAlign = TextAlign.End,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            fontWeight = FontWeight.Light,
+            fontSize = 80.sp,
+            lineHeight = 80.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 2
+        )
     }
 }
 
